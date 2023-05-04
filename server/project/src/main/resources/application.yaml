@@ -8,7 +8,16 @@ spring:
     password: Jgo@1645
     driver-class-name: com.mysql.cj.jdbc.Driver
     dialect: org.hibernate.dialect.MySQL8Dialect
+  data:
+    redis:
+      repositories:
+        enabled: false
 
+      host: redis_boot
+      port: 6379
+
+  cache:
+    type: redis
 
   jpa:
     open-in-view: false
