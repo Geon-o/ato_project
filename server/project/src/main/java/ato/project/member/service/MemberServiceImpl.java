@@ -24,7 +24,6 @@ public class MemberServiceImpl implements MemberService{
     public Long registerMember() {
         UUID createToken = UUID.randomUUID();
         String userToken = createToken.toString();
-        log.info(userToken);
 
         Member member = new Member();
         member.setAuthentication(EncryptionUtil.generateHash(userToken));
@@ -32,7 +31,7 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member);
 
         redisService.deleteByKey(userToken);
-        redisService.setKeyAndValue(userToken, member.getId());
+        redisService.setKeyAndValue(userToken, member.getMemberId());
 
         return redisService.getValueByKey(userToken);
     }
