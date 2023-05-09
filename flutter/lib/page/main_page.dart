@@ -1,3 +1,4 @@
+import 'package:ato/component_form/app_bar/bottom_bar.dart';
 import 'package:ato/component_form/main_page_form/main_page_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: MainPageForm(),
+        child: BottomBar(),
       ),
     );
   }
