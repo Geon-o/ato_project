@@ -43,7 +43,7 @@ class _BottomBar extends State<BottomBar>{
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.edit),
-            label: "일기작성",
+            label: "일기쓰기",
           ),
         ],
       ),
