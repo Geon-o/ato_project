@@ -1,6 +1,5 @@
 import 'package:ato/component_form/main_page_form/main_page_form.dart';
-import 'package:ato/page/main_page.dart';
-import 'package:ato/test/test_page.dart';
+import 'package:ato/page/diary/condition/condition_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,7 @@ class _BottomBar extends State<BottomBar>{
 
   static List _pages = [
     MainPageForm(),
-    TestPage()
+    ConditionPage()
   ];
 
   @override
