@@ -1,3 +1,4 @@
+import 'package:ato/page/diary/diary_write_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,9 @@ class _ConditionButton extends State<ConditionButton> {
             IconButton(
               icon: Image.asset(
                   'assets/condition_image/${_condition_image[widget.condition_image_index]}'),
-              onPressed: null,
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DiaryWritePage(condition: _condition_image[widget.condition_image_index],)));
+              },
               iconSize: 130.0,
             ),
             Text(
