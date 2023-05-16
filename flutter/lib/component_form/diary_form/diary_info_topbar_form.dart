@@ -5,9 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DiaryInfoTopBarForm extends StatefulWidget {
-  var condition;
+  DiaryInfoTopBarForm({Key? key,
+    required this.condition,
+    required this.dateController,
+    required this.weatherController,
+    required this.conditionController,
+  }) : super(key: key);
 
-  DiaryInfoTopBarForm({Key? key, required this.condition}) : super(key: key);
+  var condition;
+  final TextEditingController dateController;
+  final TextEditingController weatherController;
+  final TextEditingController conditionController;
 
   @override
   State<DiaryInfoTopBarForm> createState() => _DiaryWriteForm();
@@ -15,18 +23,15 @@ class DiaryInfoTopBarForm extends StatefulWidget {
 
 class _DiaryWriteForm extends State<DiaryInfoTopBarForm> {
   static DateTime now = DateTime.now();
-  static DateFormat getYear = DateFormat('yyyy');
-  String formatYear = getYear.format(now);
-
-  static DateFormat getMonthDay = DateFormat('MM.dd');
-  String formatMonthDay = getMonthDay.format(now);
+  static DateFormat formatConversion = DateFormat('yyyy.MM.dd');
+  String conversionDate = formatConversion.format(now);
 
   double latitude = 0;
   double longitude = 0;
 
   static String weatherImg = '';
 
-  Future<Map<String, dynamic>> _getWeatherData() async {
+  Future<String> _getWeatherData() async {
     CurrentPosition location = CurrentPosition();
     await location.getCurrentLocation();
     latitude = location.latitude;
@@ -61,7 +66,18 @@ class _DiaryWriteForm extends State<DiaryInfoTopBarForm> {
         weatherImg = 'cloud.png';
         break;
     }
-    return weatherData;
+
+    return weather;
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    widget.dateController.text = conversionDate;
+    _getWeatherData().then((weather) {
+      widget.weatherController.text = weather;
+    });
+    widget.conditionController.text = widget.condition;
   }
 
   @override
@@ -70,24 +86,23 @@ class _DiaryWriteForm extends State<DiaryInfoTopBarForm> {
       child: Row(
         children: [
           Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Column(
               children: [
                 Text(
-                  formatYear,
+                  conversionDate.substring(0,4),
                   style: TextStyle(fontSize: 22.4, fontWeight: FontWeight.bold),
                 ),
-                Text(formatMonthDay),
+                Text(conversionDate.substring(5,10)),
               ],
             ),
           ),
           Container(
-            child: FutureBuilder<Map<String, dynamic>>(
+            child: FutureBuilder<String>(
               future: _getWeatherData(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
-                    Map<String, dynamic> weatherData = snapshot.data!;
                     return Container(
                       height: 40,
                       width: 40,
