@@ -14,7 +14,7 @@ public class diaryTest {
 
     @Test
     void register(){
-        DiaryRegisterRequest diaryRegisterRequest = new DiaryRegisterRequest(1L, "제목", "내용", "2022.05.06");
+        DiaryRegisterRequest diaryRegisterRequest = new DiaryRegisterRequest(1L, "2022.05.06", "Cloud", "bad_condition.png", "제목", "내용");
 
         System.out.println(diaryService.registerDiary(diaryRegisterRequest));
     }

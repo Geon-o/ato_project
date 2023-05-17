@@ -12,8 +12,10 @@ import lombok.ToString;
 public class DiaryRegisterRequest {
 
     private Long memberId;
+    private String date;
+    private String weather;
+    private String condition;
     private String title;
     private String content;
-    private String date;
 
 }

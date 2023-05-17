@@ -45,6 +45,8 @@ public class DiaryServiceImpl implements DiaryService{
             diary.setTitle(diaryRegisterRequest.getTitle());
             diary.setContent(diaryRegisterRequest.getContent());
             diary.setDate(diaryRegisterRequest.getDate());
+            diary.setWeather(diaryRegisterRequest.getWeather());
+            diary.setConditionStatus(diaryRegisterRequest.getCondition());
             diary.setMember(member);
             diaryRepository.save(diary);
 
