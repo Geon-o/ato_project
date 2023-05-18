@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class SpringDiaryApi {
 
-  register(DiaryRegisterRequest request) async {
+  Future<DiaryRegisterResponse> register(DiaryRegisterRequest request) async {
     var body = json.encode(request);
 
     var response = await http.post(
@@ -24,8 +24,10 @@ class SpringDiaryApi {
 
     if(response.statusCode == 200){
       debugPrint("통신성공");
+      return DiaryRegisterResponse(true);
     } else {
       debugPrint("통신 실패");
+      return DiaryRegisterResponse(false);
     }
   }
 }
@@ -55,4 +57,10 @@ class DiaryRegisterRequest {
     'title' : title,
     'content' : content
   };
+}
+
+class DiaryRegisterResponse {
+  bool? success;
+
+  DiaryRegisterResponse(this.success);
 }

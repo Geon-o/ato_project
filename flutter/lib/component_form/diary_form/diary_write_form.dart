@@ -1,6 +1,7 @@
 import 'package:ato/api/spring_diary_api.dart';
 import 'package:ato/component_form/diary_form/diary_info_topbar_form.dart';
 import 'package:ato/component_form/diary_form/diary_textarea_form.dart';
+import 'package:ato/page/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -44,6 +45,26 @@ class _DiaryWriteForm extends State<DiaryWriteForm> {
   void _getMemberId() async {
     const storage = FlutterSecureStorage();
     idValue = await storage.read(key: "memberId");
+  }
+
+  void _showSaveDiarySnackBar(BuildContext context, String snackBarText) {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+      scaffoldMessenger.showSnackBar(
+        SnackBar(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)
+          ),
+          elevation: 0.0,
+          backgroundColor: Colors.grey.withOpacity(0.3),
+          content: Text(snackBarText, style: TextStyle(
+              color: Colors.black,
+            fontSize: 18.0,
+          ),
+          textAlign: TextAlign.center),
+          behavior: SnackBarBehavior.fixed,
+          duration: Duration(seconds: 3),
+        )
+      );
   }
 
   Future<dynamic> _showDialog(BuildContext context) {
@@ -132,13 +153,23 @@ class _DiaryWriteForm extends State<DiaryWriteForm> {
                   SizedBox(width: 50),
                   OutlinedButton(
                     onPressed: () {
-                      SpringDiaryApi().register(DiaryRegisterRequest(
+                      var responseStatus = SpringDiaryApi().register(DiaryRegisterRequest(
                           idValue!,
                           dateController.text,
                           weatherController.text,
                           conditionController.text,
                           titleController.text,
                           contentController.text));
+
+                      responseStatus.then((value) {
+                        if(value.success == true) {
+                          _showSaveDiarySnackBar(context, "일기가 잘 저장되었습니다.");
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
+                        }
+                        if (value.success == false) {
+                          _showSaveDiarySnackBar(context, "시스템 오류로 저장되지 않았습니다.");
+                        }
+                      });
                     },
                     child: Text(
                       "저장",
