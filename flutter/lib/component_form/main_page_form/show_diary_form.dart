@@ -1,119 +1,211 @@
+import 'package:ato/api/spring_diary_api.dart';
 import 'package:ato/page/diary/condition/condition_page.dart';
+import 'package:ato/utility/diary/diary_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class DiaryForm extends StatefulWidget {
-  const DiaryForm({Key? key}) : super(key: key);
+class ShowDiaryForm extends StatefulWidget {
+  const ShowDiaryForm({Key? key}) : super(key: key);
 
   @override
-  State<DiaryForm> createState() => _DiaryForm();
+  State<ShowDiaryForm> createState() => _DiaryForm();
 }
 
-class _DiaryForm extends State<DiaryForm> {
+class _DiaryForm extends State<ShowDiaryForm> {
   List<Object> testList = [
     {"title": "제목1", "content": "내용1"},
     {"title": "제목1", "content": "내용1"},
     {"title": "제목1", "content": "내용1"},
   ];
 
+  var diary_lists;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    requestDiaryList();
+  }
+
+  requestDiaryList() async {
+    const storage = FlutterSecureStorage();
+    String? idValue = await storage.read(key: "memberId");
+    int memberId = int.parse(idValue!);
+
+    List<RequestDiaryInfo> diaryList =
+        await SpringDiaryApi().diaryList(memberId, 5);
+    diary_list.clear();
+
+    for (var i = 0; i < diaryList.length; i++) {
+      diary_list.add(DiaryList(
+          title: diaryList[i].title,
+          content: diaryList[i].content,
+          conditionStatus: diaryList[i].conditionStatus,
+          weather: diaryList[i].weather,
+          date: diaryList[i].date,
+          diaryNo: diaryList[i].diaryNo));
+    }
+    diary_lists = diary_list;
+
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return testList.isNotEmpty ? ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: testList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-            child: GestureDetector(
-              child: Card(
-                shape:
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: Container(
-                  height: 480,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 30,
-                        margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Row(
-                                children: [
-                                  Text("23.05.03"),
-                                  Text("날씨 좋음"),
-                                ],
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : diary_lists != null && diary_lists.isNotEmpty
+            ? ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: diary_lists.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var weatherState = diary_lists[index].weather;
+                  String weatherImg = "";
+
+                  switch (weatherState) {
+                    case 'Thunderstorm':
+                      weatherImg = 'thunderstrom.png';
+                      break;
+                    case 'Drizzle':
+                      weatherImg = 'rain.png';
+                      break;
+                    case 'Rain':
+                      weatherImg = 'rain.png';
+                      break;
+                    case 'Snow':
+                      weatherImg = 'snow.png';
+                      break;
+                    case 'Atomsphere':
+                      weatherImg = 'atomshpere.png';
+                      break;
+                    case 'Clear':
+                      weatherImg = 'clear.png';
+                      break;
+                    case 'Clouds':
+                      weatherImg = 'cloud.png';
+                      break;
+                  }
+
+                  return Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: GestureDetector(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          diary_lists[index]
+                                              .date
+                                              .substring(0, 4),
+                                          style: TextStyle(
+                                              fontSize: 22.4,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(diary_lists[index]
+                                            .date
+                                            .substring(5, 10)),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/weather_images/${weatherImg}'))),
+                                    ),
+                                    Spacer(),
+                                    Container(
+                                      margin: EdgeInsets.only(right: 15),
+                                      height: 55.0,
+                                      width: 55.0,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/condition_image/${diary_lists[index].conditionStatus}'))),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Text("배터리 3칸"),
-                            )
-                          ],
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(10.0),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  diary_lists[index].title,
+                                  style: TextStyle(fontSize: 25.0),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                                padding: EdgeInsets.fromLTRB(10,0,5,0),
+                                child: Text(
+                                  diary_lists[index].content,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
+                                  style: TextStyle(fontSize: 15.0),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 0.0,
-                      ),
-                      Divider(
-                        color: Colors.black,
-                      ),
-                      Container(
-                        height: 300,
-                        width: 300,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/test/spring boot.png',),fit: BoxFit.fill)),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "제목",
-                          style: TextStyle(fontSize: 25.0),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 5, 0),
-                        child: Text(
-                          "내용이 들어갈 자리인데 이런저런 애기 이렇궁 저렇궁 이런저런 이야기가 왔다갔다하고 뭐 저런이야기 이런이야기 다들어감",
-                          style: TextStyle(fontSize: 15.0),
-                        ),
-                      ),
-                    ],
-                  ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ConditionPage()));
+                      },
+                    ),
+                  );
+                })
+            : Container(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(20.0),
+                      width: 145,
+                      height: 145,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/mainpage_image/notebook.png'))),
+                    ),
+                    Text(
+                      "작성된 일기가 없어요",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    SizedBox(height: 10.0,),
+                    Text("일기를 작성해주세요!",
+                    style: TextStyle(
+                      fontSize: 17.5
+                    ),)
+                  ],
                 ),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ConditionPage())
-                );
-              },
-            ),
-          );
-        }
-    ) : Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      child: Center(
-        child: Text(
-            "선물을 남겨보세요!"
-        ),
-      ),
-    );
+              );
   }
 }
