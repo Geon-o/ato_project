@@ -3,11 +3,14 @@ package ato.project.diary.service;
 import ato.project.diary.controller.request.DiaryRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.entity.Diary;
+import ato.project.diary.mapping.DiaryMapping;
 import ato.project.diary.repository.DiaryRepository;
 import ato.project.member.entity.Member;
 import ato.project.member.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,13 +27,13 @@ public class DiaryServiceImpl implements DiaryService{
     private MemberRepository memberRepository;
 
     @Override
-    public List<Diary> getDiaryList(DiaryRequest diaryRequest) {
-        Long userId = diaryRequest.getUserId();
+    public List<DiaryMapping> getDiaryList(DiaryRequest diaryRequest) {
+        Long userId = diaryRequest.getMemberId();
 
-//        Slice<Diary> diarySlice = diaryRepository.findByDiary(userId, Pageable.ofSize(diaryRequest.getDiaryCount()));
-//        List<Diary> diaryList = diarySlice.getContent();
+        Slice<DiaryMapping> diarySlice = diaryRepository.findByDiary(userId, Pageable.ofSize(diaryRequest.getDiaryCountSize()));
+        List<DiaryMapping> diaryList = diarySlice.getContent();
 
-        return null;
+        return diaryList;
     }
 
     @Override

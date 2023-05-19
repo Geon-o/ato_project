@@ -3,6 +3,7 @@ package ato.project.diary.controller;
 import ato.project.diary.controller.request.DiaryRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.entity.Diary;
+import ato.project.diary.mapping.DiaryMapping;
 import ato.project.diary.service.DiaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class DiaryController {
     private DiaryService diaryService;
 
     @PostMapping("/list")
-    public List<Diary> diaryList(@RequestBody DiaryRequest diaryRequest){
+    public List<DiaryMapping> diaryList(@RequestBody DiaryRequest diaryRequest){
         log.info("diaryList()" + diaryRequest);
 
         return diaryService.getDiaryList(diaryRequest);

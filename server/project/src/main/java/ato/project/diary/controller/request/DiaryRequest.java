@@ -11,6 +11,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class DiaryRequest {
 
-    private Long userId;
-    private int diaryCount;
+    private Long memberId;
+    private int diaryCountSize;
 }
