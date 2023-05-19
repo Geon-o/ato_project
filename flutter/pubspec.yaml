@@ -39,6 +39,8 @@ dependencies:
   get: ^4.6.5
   flutter_secure_storage: ^8.0.0
   shared_preferences: ^2.1.0
+  intl: ^0.18.1
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
@@ -68,8 +70,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/
-    - assets/test/
+    - assets/mainpage_image/
     - assets/condition_image/
+    - assets/weather_images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

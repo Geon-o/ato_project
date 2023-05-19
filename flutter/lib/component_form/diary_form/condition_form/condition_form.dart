@@ -18,12 +18,12 @@ class _ConditionForm extends State<ConditionForm>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-              Text("오늘 하루는 어땠니?", style: TextStyle(
+              Text("오늘 하루는 어땠어?", style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 19.0,
+                  fontSize: 21.0,
                   color: Colors.blueGrey
               ),),
-            SizedBox(height: 50,),
+            SizedBox(height: 20,),
             ConditionButton(condition_state: "좋아", condition_image_index: 0),
             SizedBox(height: 30,),
             ConditionButton(condition_state: "그냥그래", condition_image_index: 1),

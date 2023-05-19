@@ -39,7 +39,7 @@ class _ConditionButton extends State<ConditionButton> {
             ),
             Text(
               "${widget.condition_state}",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,),
+              style: TextStyle(fontSize: 17.5),
             )
           ],
         )
