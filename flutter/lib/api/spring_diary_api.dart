@@ -53,6 +53,22 @@ class SpringDiaryApi {
     }
   }
 
+  Future<RequestDiaryInfo> read(int diaryNo) async {
+    var response = await http.get(Uri.http(IpInfo.httpUri, '/diary/read/$diaryNo'),
+      headers: {'Content-Type' : "application/json"});
+
+    if(response.statusCode == 200) {
+      debugPrint("통신 성공");
+      var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+      RequestDiaryInfo diaryData = RequestDiaryInfo.fromJson(data);
+
+      return diaryData;
+    } else {
+      throw Exception("read() 에러 발생");
+    }
+  }
+
   delete(DiaryDeleteRequest request) async {
     var body = json.encode(request);
 

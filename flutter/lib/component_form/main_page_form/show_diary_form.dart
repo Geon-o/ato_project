@@ -1,6 +1,7 @@
 import 'package:ato/api/spring_diary_api.dart';
 import 'package:ato/component_form/diary_form/diary_delete_form.dart';
 import 'package:ato/page/diary/condition/condition_page.dart';
+import 'package:ato/page/diary/diary_read_page.dart';
 import 'package:ato/utility/diary/diary_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +15,6 @@ class ShowDiaryForm extends StatefulWidget {
 }
 
 class _DiaryForm extends State<ShowDiaryForm> {
-  List<Object> testList = [
-    {"title": "제목1", "content": "내용1"},
-    {"title": "제목1", "content": "내용1"},
-    {"title": "제목1", "content": "내용1"},
-  ];
 
   var diary_lists;
   bool isLoading = true;
@@ -179,7 +175,7 @@ class _DiaryForm extends State<ShowDiaryForm> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ConditionPage()));
+                                builder: (context) => DiaryReadPage(currentDiaryNo: diary_lists[index].diaryNo)));
                       },
                     ),
                   );
