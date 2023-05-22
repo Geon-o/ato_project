@@ -48,7 +48,8 @@ class _DiaryDeleteForm extends State<DiaryDeleteForm> {
                     MaterialStateProperty.all(Colors.white60)),
                 onPressed: () {
                   _requestDeleteDiary();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+                  Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
                 },
                 child: Text(
                   "확인",
