@@ -1,6 +1,6 @@
 package ato.project.diary.service;
 
-import ato.project.diary.controller.request.DiaryDeleteRequest;
+import ato.project.diary.controller.request.DiaryCommonRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.mapping.DiaryMapping;
@@ -13,5 +13,5 @@ public interface DiaryService {
 
     public boolean registerDiary(DiaryRegisterRequest diaryRegisterRequest);
 
-    public void deleteDiary(DiaryDeleteRequest diaryDeleteRequest);
+    public void deleteDiary(DiaryCommonRequest diaryCommonRequest);
 }

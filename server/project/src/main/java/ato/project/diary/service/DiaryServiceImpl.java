@@ -1,6 +1,6 @@
 package ato.project.diary.service;
 
-import ato.project.diary.controller.request.DiaryDeleteRequest;
+import ato.project.diary.controller.request.DiaryCommonRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.entity.Diary;
@@ -62,7 +62,7 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public void deleteDiary(DiaryDeleteRequest diaryDeleteRequest) {
-        diaryRepository.deleteByDiary(diaryDeleteRequest.getDiaryNo(), diaryDeleteRequest.getMemberId());
+    public void deleteDiary(DiaryCommonRequest diaryCommonRequest) {
+        diaryRepository.deleteByDiary(diaryCommonRequest.getDiaryNo(), diaryCommonRequest.getMemberId());
     }
 }

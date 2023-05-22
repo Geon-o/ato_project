@@ -1,6 +1,6 @@
 package ato.project.diary.controller;
 
-import ato.project.diary.controller.request.DiaryDeleteRequest;
+import ato.project.diary.controller.request.DiaryCommonRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.mapping.DiaryMapping;
@@ -35,9 +35,9 @@ public class DiaryController {
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody DiaryDeleteRequest diaryDeleteRequest){
-        log.info("delete()" + diaryDeleteRequest.getDiaryNo());
+    public void delete(@RequestBody DiaryCommonRequest diaryCommonRequest){
+        log.info("delete()" + diaryCommonRequest.getDiaryNo());
 
-        diaryService.deleteDiary(diaryDeleteRequest);
+        diaryService.deleteDiary(diaryCommonRequest);
     }
 }

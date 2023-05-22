@@ -1,6 +1,6 @@
 package ato.project.diaryTest;
 
-import ato.project.diary.controller.request.DiaryDeleteRequest;
+import ato.project.diary.controller.request.DiaryCommonRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
 import ato.project.diary.mapping.DiaryMapping;
@@ -44,8 +44,8 @@ public class diaryTest {
 
     @Test
     void delete() {
-        DiaryDeleteRequest diaryDeleteRequest = new DiaryDeleteRequest(1L, 1L);
+        DiaryCommonRequest diaryCommonRequest = new DiaryCommonRequest(1L, 1L);
 
-        diaryService.deleteDiary(diaryDeleteRequest);
+        diaryService.deleteDiary(diaryCommonRequest);
     }
 }
