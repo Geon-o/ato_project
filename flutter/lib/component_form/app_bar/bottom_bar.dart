@@ -13,7 +13,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBar extends State<BottomBar>{
 
   int _selectedViewPageInx = 0;
-  Color _color = Colors.lightBlue;
+  Color _color = Colors.black26;
 
   static List _pages = [
     MainPageForm(),
@@ -27,8 +27,9 @@ class _BottomBar extends State<BottomBar>{
         child: _pages[_selectedViewPageInx],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: _color,
-        unselectedItemColor: Colors.blueGrey,
+        backgroundColor: Colors.white70,
+        selectedItemColor: Colors.blueGrey,
+        unselectedItemColor: _color,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         iconSize: 20,
