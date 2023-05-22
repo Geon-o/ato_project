@@ -1,5 +1,6 @@
 package ato.project.diaryTest;
 
+import ato.project.diary.controller.request.DiaryDeleteRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.controller.request.DiaryRequest;
 import ato.project.diary.mapping.DiaryMapping;
@@ -17,14 +18,14 @@ public class diaryTest {
     private DiaryService diaryService;
 
     @Test
-    void register(){
+    void register() {
         DiaryRegisterRequest diaryRegisterRequest = new DiaryRegisterRequest(1L, "2022.05.06", "Cloud", "bad_condition.png", "제목", "내용");
 
         System.out.println(diaryService.registerDiary(diaryRegisterRequest));
     }
 
     @Test
-    void list(){
+    void list() {
         DiaryRequest diaryRequest = new DiaryRequest(1L, 4);
 
         List<DiaryMapping> diaryMappings = diaryService.getDiaryList(diaryRequest);
@@ -32,12 +33,19 @@ public class diaryTest {
         for (int i = 0; i < diaryMappings.size(); i++) {
             System.out.println(
                     diaryMappings.get(i).getDiaryNo() + " " +
-                            diaryMappings.get(i).getTitle()  + " " +
+                            diaryMappings.get(i).getTitle() + " " +
                             diaryMappings.get(i).getContent() + " " +
                             diaryMappings.get(i).getDate() + " " +
                             diaryMappings.get(i).getConditionStatus() + " " +
                             diaryMappings.get(i).getWeather()
-                    );
+            );
         }
+    }
+
+    @Test
+    void delete() {
+        DiaryDeleteRequest diaryDeleteRequest = new DiaryDeleteRequest(1L, 1L);
+
+        diaryService.deleteDiary(diaryDeleteRequest);
     }
 }

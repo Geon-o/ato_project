@@ -1,5 +1,6 @@
 package ato.project.diary.controller;
 
+import ato.project.diary.controller.request.DiaryDeleteRequest;
 import ato.project.diary.controller.request.DiaryRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.entity.Diary;
@@ -27,10 +28,17 @@ public class DiaryController {
         return diaryService.getDiaryList(diaryRequest);
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public Boolean registerDiary(@RequestBody DiaryRegisterRequest diaryRegisterRequest){
         log.info("registerDiary()" + diaryRegisterRequest);
 
         return diaryService.registerDiary(diaryRegisterRequest);
+    }
+
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody DiaryDeleteRequest diaryDeleteRequest){
+        log.info("delete()" + diaryDeleteRequest.getDiaryNo());
+
+        diaryService.deleteDiary(diaryDeleteRequest);
     }
 }
