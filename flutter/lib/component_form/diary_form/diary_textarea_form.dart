@@ -21,11 +21,15 @@ class _DiaryTextAreaFrom extends State<DiaryTextAreaForm> {
     var size = MediaQuery.of(context).size.height;
     var contentTextAreaSize = 0;
 
-    if(size <= 695) {
-      contentTextAreaSize = 10;
-    } else {
-      contentTextAreaSize = 16;
-    }
+    setState(() {
+      if(size <= 695) {
+        debugPrint("잘됨");
+        contentTextAreaSize = 10;
+      } else {
+        debugPrint("잘안됨");
+        contentTextAreaSize = 16;
+      }
+    });
 
     return Container(
       child: Column(
