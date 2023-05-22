@@ -65,4 +65,12 @@ public class DiaryServiceImpl implements DiaryService{
     public void deleteDiary(DiaryCommonRequest diaryCommonRequest) {
         diaryRepository.deleteByDiary(diaryCommonRequest.getDiaryNo(), diaryCommonRequest.getMemberId());
     }
+
+    @Override
+    public DiaryMapping readDiary(Long diaryNo) {
+
+        DiaryMapping diaryData = diaryRepository.findByDiaryData(diaryNo);
+
+        return diaryData;
+    }
 }

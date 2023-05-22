@@ -40,4 +40,11 @@ public class DiaryController {
 
         diaryService.deleteDiary(diaryCommonRequest);
     }
+
+    @GetMapping("/read/{diaryNo}")
+    public DiaryMapping readDiary(@PathVariable("diaryNo") Long diaryNo){
+        log.info("readDiary()" + diaryNo);
+
+        return diaryService.readDiary(diaryNo);
+    }
 }

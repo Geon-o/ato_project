@@ -23,4 +23,8 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     @Transactional
     @Query("delete from Diary d where d.diaryNo = :diaryNo and  d.member.memberId = :memberId")
     void deleteByDiary(@Param("diaryNo") Long diaryNo, @Param("memberId") Long memberId);
+
+    @Query("select d.diaryNo as diaryNo, d.title as title, d.content as content, d.conditionStatus as conditionStatus," +
+            "d.weather as weather, d.date as date from Diary d where d.diaryNo = :diaryNo")
+    DiaryMapping findByDiaryData(@Param("diaryNo") Long diaryNo);
 }

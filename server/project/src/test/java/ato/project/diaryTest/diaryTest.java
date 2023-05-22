@@ -48,4 +48,16 @@ public class diaryTest {
 
         diaryService.deleteDiary(diaryCommonRequest);
     }
+
+    @Test
+    void read() {
+        Long diaryNo = 7L;
+        DiaryMapping data = diaryService.readDiary(diaryNo);
+        System.out.println("몇번째 다이어리: "+data.getDiaryNo());
+        System.out.println("날짜: "+data.getDate());
+        System.out.println("날씨: "+data.getWeather());
+        System.out.println("컨디션: "+data.getConditionStatus());
+        System.out.println("제목: "+data.getTitle());
+        System.out.println("내용: "+data.getContent());
+    }
 }

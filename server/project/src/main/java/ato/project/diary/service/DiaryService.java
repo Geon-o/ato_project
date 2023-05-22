@@ -14,4 +14,6 @@ public interface DiaryService {
     public boolean registerDiary(DiaryRegisterRequest diaryRegisterRequest);
 
     public void deleteDiary(DiaryCommonRequest diaryCommonRequest);
+
+    public DiaryMapping readDiary(Long diaryNo);
 }
