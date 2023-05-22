@@ -1,7 +1,7 @@
 package ato.project.diary.service;
 
 import ato.project.diary.controller.request.DiaryDeleteRequest;
-import ato.project.diary.controller.request.DiaryRequest;
+import ato.project.diary.controller.request.DiaryListRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.entity.Diary;
 import ato.project.diary.mapping.DiaryMapping;
@@ -28,10 +28,10 @@ public class DiaryServiceImpl implements DiaryService{
     private MemberRepository memberRepository;
 
     @Override
-    public List<DiaryMapping> getDiaryList(DiaryRequest diaryRequest) {
-        Long userId = diaryRequest.getMemberId();
+    public List<DiaryMapping> getDiaryList(DiaryListRequest diaryListRequest) {
+        Long userId = diaryListRequest.getMemberId();
 
-        Slice<DiaryMapping> diarySlice = diaryRepository.findByDiary(userId, Pageable.ofSize(diaryRequest.getDiaryCountSize()));
+        Slice<DiaryMapping> diarySlice = diaryRepository.findByDiary(userId, Pageable.ofSize(diaryListRequest.getDiaryCountSize()));
         List<DiaryMapping> diaryList = diarySlice.getContent();
 
         return diaryList;

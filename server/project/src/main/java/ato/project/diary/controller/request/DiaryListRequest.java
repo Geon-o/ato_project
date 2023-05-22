@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class DiaryRequest {
+public class DiaryListRequest {
 
     private Long memberId;
     private int diaryCountSize;

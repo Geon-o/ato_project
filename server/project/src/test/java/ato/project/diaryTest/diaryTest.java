@@ -2,7 +2,7 @@ package ato.project.diaryTest;
 
 import ato.project.diary.controller.request.DiaryDeleteRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
-import ato.project.diary.controller.request.DiaryRequest;
+import ato.project.diary.controller.request.DiaryListRequest;
 import ato.project.diary.mapping.DiaryMapping;
 import ato.project.diary.service.DiaryService;
 import org.junit.jupiter.api.Test;
@@ -26,9 +26,9 @@ public class diaryTest {
 
     @Test
     void list() {
-        DiaryRequest diaryRequest = new DiaryRequest(1L, 4);
+        DiaryListRequest diaryListRequest = new DiaryListRequest(1L, 4);
 
-        List<DiaryMapping> diaryMappings = diaryService.getDiaryList(diaryRequest);
+        List<DiaryMapping> diaryMappings = diaryService.getDiaryList(diaryListRequest);
 
         for (int i = 0; i < diaryMappings.size(); i++) {
             System.out.println(
