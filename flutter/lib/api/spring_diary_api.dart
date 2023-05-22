@@ -52,6 +52,22 @@ class SpringDiaryApi {
       throw Exception("diaryList() 에러발생");
     }
   }
+
+  delete(DiaryDeleteRequest request) async {
+    var body = json.encode(request);
+
+    var response = await http.delete(
+      Uri.http(IpInfo.httpUri, '/diary/delete'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint("통신성공");
+    } else {
+      debugPrint("통신 실패");
+    }
+  }
 }
 
 class DiaryRegisterRequest {
@@ -73,6 +89,21 @@ class DiaryRegisterRequest {
         'title': title,
         'content': content
       };
+}
+
+class DiaryDeleteRequest {
+  int memberId;
+  int diaryNo;
+
+  DiaryDeleteRequest(
+      this.memberId,
+      this.diaryNo
+      );
+
+  Map<String, dynamic> toJson() => {
+    'memberId' : memberId,
+    'diaryNo' : diaryNo
+  };
 }
 
 class RequestDiaryInfo {

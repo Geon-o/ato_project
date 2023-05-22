@@ -1,4 +1,5 @@
 import 'package:ato/api/spring_diary_api.dart';
+import 'package:ato/component_form/diary_form/diary_delete_form.dart';
 import 'package:ato/page/diary/condition/condition_page.dart';
 import 'package:ato/utility/diary/diary_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -134,14 +135,14 @@ class _DiaryForm extends State<ShowDiaryForm> {
                                     ),
                                     Spacer(),
                                     Container(
-                                      margin: EdgeInsets.only(right: 15),
                                       height: 55.0,
                                       width: 55.0,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: AssetImage(
                                                   'assets/condition_image/${diary_lists[index].conditionStatus}'))),
-                                    )
+                                    ),
+                                    DiaryDeleteForm(currentDiaryNo: diary_lists[index].diaryNo,)
                                   ],
                                 ),
                               ),
