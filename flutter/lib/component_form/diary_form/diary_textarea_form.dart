@@ -18,6 +18,15 @@ class _DiaryTextAreaFrom extends State<DiaryTextAreaForm> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size.height;
+    var contentTextAreaSize = 0;
+
+    if(size <= 695) {
+      contentTextAreaSize = 10;
+    } else {
+      contentTextAreaSize = 16;
+    }
+
     return Container(
       child: Column(
         children: [
@@ -41,7 +50,7 @@ class _DiaryTextAreaFrom extends State<DiaryTextAreaForm> {
             margin: EdgeInsets.fromLTRB(15, 0, 10, 10),
             child: TextField(
               controller: widget.contentController,
-              maxLines: 16,
+              maxLines: contentTextAreaSize,
               style: TextStyle(fontSize: 17.5),
               decoration: InputDecoration(
                   hintText: "내용",
