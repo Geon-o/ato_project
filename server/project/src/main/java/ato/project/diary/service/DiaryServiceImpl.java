@@ -2,6 +2,7 @@ package ato.project.diary.service;
 
 import ato.project.diary.controller.request.DiaryCommonRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
+import ato.project.diary.controller.request.DiaryModifyRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.entity.Diary;
 import ato.project.diary.mapping.DiaryMapping;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,5 +74,21 @@ public class DiaryServiceImpl implements DiaryService{
         DiaryMapping diaryData = diaryRepository.findByDiaryData(diaryNo);
 
         return diaryData;
+    }
+
+    @Override
+    public void diaryModify(DiaryModifyRequest diaryModifyRequest) {
+        Optional<Diary> maybeDiary = diaryRepository.findById(diaryModifyRequest.getDiaryNo());
+
+        Diary diary;
+
+        if (maybeDiary.isPresent()) {
+            diary = maybeDiary.get();
+            diary.setTitle(diaryModifyRequest.getTitle());
+            diary.setContent(diaryModifyRequest.getContent());
+            diaryRepository.save(diary);
+        } else {
+            throw new RuntimeException("작성되지 않은 일기입니다.");
+        }
     }
 }

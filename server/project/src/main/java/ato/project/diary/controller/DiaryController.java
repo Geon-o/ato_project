@@ -2,6 +2,7 @@ package ato.project.diary.controller;
 
 import ato.project.diary.controller.request.DiaryCommonRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
+import ato.project.diary.controller.request.DiaryModifyRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.mapping.DiaryMapping;
 import ato.project.diary.service.DiaryService;
@@ -46,5 +47,12 @@ public class DiaryController {
         log.info("readDiary()" + diaryNo);
 
         return diaryService.readDiary(diaryNo);
+    }
+
+    @PutMapping("/modify")
+    public void modify(@RequestBody DiaryModifyRequest diaryModifyRequest){
+        log.info("modify()" + diaryModifyRequest.getDiaryNo());
+
+        diaryService.diaryModify(diaryModifyRequest);
     }
 }

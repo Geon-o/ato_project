@@ -2,6 +2,7 @@ package ato.project.diary.service;
 
 import ato.project.diary.controller.request.DiaryCommonRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
+import ato.project.diary.controller.request.DiaryModifyRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.mapping.DiaryMapping;
 
@@ -16,4 +17,6 @@ public interface DiaryService {
     public void deleteDiary(DiaryCommonRequest diaryCommonRequest);
 
     public DiaryMapping readDiary(Long diaryNo);
+
+    public void diaryModify(DiaryModifyRequest diaryModifyRequest);
 }

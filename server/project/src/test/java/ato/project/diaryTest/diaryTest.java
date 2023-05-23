@@ -1,6 +1,7 @@
 package ato.project.diaryTest;
 
 import ato.project.diary.controller.request.DiaryCommonRequest;
+import ato.project.diary.controller.request.DiaryModifyRequest;
 import ato.project.diary.controller.request.DiaryRegisterRequest;
 import ato.project.diary.controller.request.DiaryListRequest;
 import ato.project.diary.mapping.DiaryMapping;
@@ -59,5 +60,11 @@ public class diaryTest {
         System.out.println("컨디션: "+data.getConditionStatus());
         System.out.println("제목: "+data.getTitle());
         System.out.println("내용: "+data.getContent());
+    }
+
+    @Test
+    void modify() {
+        DiaryModifyRequest diaryModifyRequest = new DiaryModifyRequest(24L, "제목변경", "내용변경");
+        diaryService.diaryModify(diaryModifyRequest);
     }
 }
