@@ -50,9 +50,9 @@ public class DiaryController {
     }
 
     @PutMapping("/modify")
-    public void modify(@RequestBody DiaryModifyRequest diaryModifyRequest){
+    public Boolean modify(@RequestBody DiaryModifyRequest diaryModifyRequest){
         log.info("modify()" + diaryModifyRequest.getDiaryNo());
 
-        diaryService.diaryModify(diaryModifyRequest);
+        return diaryService.diaryModify(diaryModifyRequest);
     }
 }

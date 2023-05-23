@@ -18,5 +18,5 @@ public interface DiaryService {
 
     public DiaryMapping readDiary(Long diaryNo);
 
-    public void diaryModify(DiaryModifyRequest diaryModifyRequest);
+    public Boolean diaryModify(DiaryModifyRequest diaryModifyRequest);
 }

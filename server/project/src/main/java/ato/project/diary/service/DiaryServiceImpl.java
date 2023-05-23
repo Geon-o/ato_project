@@ -77,7 +77,7 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public void diaryModify(DiaryModifyRequest diaryModifyRequest) {
+    public Boolean diaryModify(DiaryModifyRequest diaryModifyRequest) {
         Optional<Diary> maybeDiary = diaryRepository.findById(diaryModifyRequest.getDiaryNo());
 
         Diary diary;
@@ -87,8 +87,11 @@ public class DiaryServiceImpl implements DiaryService{
             diary.setTitle(diaryModifyRequest.getTitle());
             diary.setContent(diaryModifyRequest.getContent());
             diaryRepository.save(diary);
+            return true;
+
         } else {
-            throw new RuntimeException("작성되지 않은 일기입니다.");
+            log.info("등록되지 않은 일기입니다.");
+            return false;
         }
     }
 }
