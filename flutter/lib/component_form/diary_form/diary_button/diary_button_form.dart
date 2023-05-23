@@ -61,7 +61,9 @@ class _DiaryButtonForm extends State<DiaryButtonForm> {
                     backgroundColor:
                     MaterialStateProperty.all(Colors.white60)),
                 onPressed: () {
-                  _requestDeleteDiary();
+                  setState(() {
+                    _requestDeleteDiary();
+                  });
                   Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
                 },
