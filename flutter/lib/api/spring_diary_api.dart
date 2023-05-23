@@ -84,6 +84,24 @@ class SpringDiaryApi {
       debugPrint("통신 실패");
     }
   }
+
+  Future<DiaryModifyResponse> modify(DiaryModifyRequest diaryModifyRequest) async {
+    var body = json.encode(diaryModifyRequest);
+
+    var response = await http.put(
+      Uri.http(IpInfo.httpUri, '/diary/modify'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    if(response.statusCode == 200){
+      debugPrint("통신 성공");
+      return DiaryModifyResponse(true);
+    } else {
+      debugPrint("통신 실패");
+      return DiaryModifyResponse(false);
+    }
+  }
 }
 
 class DiaryRegisterRequest {
@@ -105,6 +123,23 @@ class DiaryRegisterRequest {
         'title': title,
         'content': content
       };
+}
+
+class DiaryModifyRequest {
+  int diaryNo;
+  String title;
+  String content;
+
+  DiaryModifyRequest(
+      this.diaryNo,
+      this.title,
+      this.content
+      );
+  Map<String, dynamic> toJson() =>{
+    'diaryNo' : diaryNo,
+    'title' : title,
+    'content' : content
+  };
 }
 
 class DiaryDeleteRequest {
@@ -155,4 +190,10 @@ class DiaryRegisterResponse {
   bool? success;
 
   DiaryRegisterResponse(this.success);
+}
+
+class DiaryModifyResponse {
+  bool? success;
+
+  DiaryModifyResponse(this.success);
 }

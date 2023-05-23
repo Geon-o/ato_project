@@ -1,4 +1,5 @@
 import 'package:ato/api/spring_diary_api.dart';
+import 'package:ato/page/diary/diary_modify_page.dart';
 import 'package:ato/page/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,20 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class DiaryButtonForm extends StatefulWidget {
 
   var currentDiaryNo;
-  DiaryButtonForm({Key? key, required this.currentDiaryNo}) : super(key: key);
+  var date;
+  var weather;
+  var condition;
+  var title;
+  var content;
+
+  DiaryButtonForm({Key? key,
+    required this.currentDiaryNo,
+    required this.date,
+    required this.weather,
+    required this.condition,
+    required this.title,
+    required this.content,
+  }) : super(key: key);
 
   @override
   State<DiaryButtonForm> createState() => _DiaryButtonForm();
@@ -70,7 +84,18 @@ class _DiaryButtonForm extends State<DiaryButtonForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                  DiaryModifyPage(
+                    diaryNo: widget.currentDiaryNo,
+                    date: widget.date,
+                    weather: widget.weather,
+                    condition: widget.condition,
+                    title: widget.title,
+                    content: widget.content,
+                  ),));
+            },
             child: Text(
               "수정",
               style: TextStyle(fontSize: 19.0, color: Colors.black),
@@ -86,7 +111,6 @@ class _DiaryButtonForm extends State<DiaryButtonForm> {
           OutlinedButton(
             onPressed: () {
               _showDialog(context);
-
             },
             child: Text(
               "삭제",

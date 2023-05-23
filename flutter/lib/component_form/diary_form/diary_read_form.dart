@@ -131,7 +131,14 @@ class _DiaryReadPage extends State<DiaryReadForm> {
                       thickness: 1.0,
                       color: Colors.grey,
                     )),
-                DiaryButtonForm(currentDiaryNo: diaryInfo.diaryNo,)
+                DiaryButtonForm(
+                  currentDiaryNo: diaryInfo.diaryNo,
+                  date: diaryInfo.date,
+                  weather: weatherImg,
+                  condition: diaryInfo.conditionStatus,
+                  title: diaryInfo.title,
+                  content: diaryInfo.content,
+                )
               ],
             );
           } else if (snapshot.hasError) {
