@@ -19,6 +19,11 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
             "order by d.diaryNo desc")
     Slice<DiaryMapping> findByDiary(@Param("memberId")Long memberId, Pageable pageable);
 
+    @Query("select d.diaryNo as diaryNo, d.title as title, d.content as content, d.conditionStatus as conditionStatus, " +
+            "d.weather as weather, d.date as date from Diary d where d.member.memberId = :memberId and d.diaryNo < :diaryNo " +
+            "order by d.diaryNo desc")
+    Slice<DiaryMapping> findByNextDiary(@Param("memberId") Long memberId, @Param("diaryNo") Long diaryNo, Pageable pageable);
+
     @Modifying
     @Transactional
     @Query("delete from Diary d where d.diaryNo = :diaryNo and  d.member.memberId = :memberId")

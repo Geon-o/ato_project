@@ -1,9 +1,6 @@
 package ato.project.diaryTest;
 
-import ato.project.diary.controller.request.DiaryCommonRequest;
-import ato.project.diary.controller.request.DiaryModifyRequest;
-import ato.project.diary.controller.request.DiaryRegisterRequest;
-import ato.project.diary.controller.request.DiaryListRequest;
+import ato.project.diary.controller.request.*;
 import ato.project.diary.mapping.DiaryMapping;
 import ato.project.diary.service.DiaryService;
 import org.junit.jupiter.api.Test;
@@ -27,7 +24,7 @@ public class diaryTest {
 
     @Test
     void list() {
-        DiaryListRequest diaryListRequest = new DiaryListRequest(1L, 4);
+        DiaryListRequest diaryListRequest = new DiaryListRequest(2L, 4);
 
         List<DiaryMapping> diaryMappings = diaryService.getDiaryList(diaryListRequest);
 
@@ -40,6 +37,25 @@ public class diaryTest {
                             diaryMappings.get(i).getConditionStatus() + " " +
                             diaryMappings.get(i).getWeather()
             );
+        }
+    }
+
+    @Test
+    void nextList() {
+        DiaryNextListRequest diaryNextListRequest = new DiaryNextListRequest(2L, 30L, 5);
+
+        List<DiaryMapping> diaryNextList = diaryService.getNextDiaryList(diaryNextListRequest);
+
+        for (int i = 0; i < diaryNextList.size(); i++) {
+            System.out.println(
+                    diaryNextList.get(i).getDiaryNo() + " " +
+                            diaryNextList.get(i).getTitle() + " " +
+                            diaryNextList.get(i).getContent() + " " +
+                            diaryNextList.get(i).getDate() + " " +
+                            diaryNextList.get(i).getConditionStatus() + " " +
+                            diaryNextList.get(i).getWeather()
+            );
+
         }
     }
 

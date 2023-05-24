@@ -1,9 +1,6 @@
 package ato.project.diary.controller;
 
-import ato.project.diary.controller.request.DiaryCommonRequest;
-import ato.project.diary.controller.request.DiaryListRequest;
-import ato.project.diary.controller.request.DiaryModifyRequest;
-import ato.project.diary.controller.request.DiaryRegisterRequest;
+import ato.project.diary.controller.request.*;
 import ato.project.diary.mapping.DiaryMapping;
 import ato.project.diary.service.DiaryService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +23,13 @@ public class DiaryController {
         log.info("diaryList()" + diaryListRequest);
 
         return diaryService.getDiaryList(diaryListRequest);
+    }
+
+    @PostMapping("/nextList")
+    public List<DiaryMapping> diaryNextList(@RequestBody DiaryNextListRequest diaryNextListRequest) {
+        log.info("diaryNextList()" + diaryNextListRequest.getDiaryNo());
+
+        return diaryService.getNextDiaryList(diaryNextListRequest);
     }
 
     @PostMapping("/register")

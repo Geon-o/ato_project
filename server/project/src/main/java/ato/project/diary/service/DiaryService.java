@@ -1,9 +1,6 @@
 package ato.project.diary.service;
 
-import ato.project.diary.controller.request.DiaryCommonRequest;
-import ato.project.diary.controller.request.DiaryListRequest;
-import ato.project.diary.controller.request.DiaryModifyRequest;
-import ato.project.diary.controller.request.DiaryRegisterRequest;
+import ato.project.diary.controller.request.*;
 import ato.project.diary.mapping.DiaryMapping;
 
 import java.util.List;
@@ -11,6 +8,8 @@ import java.util.List;
 public interface DiaryService {
 
     public List<DiaryMapping> getDiaryList(DiaryListRequest diaryListRequest);
+
+    public List<DiaryMapping> getNextDiaryList(DiaryNextListRequest diaryNextListRequest);
 
     public boolean registerDiary(DiaryRegisterRequest diaryRegisterRequest);
 
