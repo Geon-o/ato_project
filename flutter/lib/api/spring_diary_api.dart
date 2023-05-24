@@ -53,6 +53,29 @@ class SpringDiaryApi {
     }
   }
 
+  Future<List<RequestDiaryInfo>> nextDiary(
+      int memberId,int lastDiaryNo, int diaryCountSize) async {
+    var body = {'memberId': memberId, 'diaryNo' : lastDiaryNo,'diaryCountSize': diaryCountSize};
+
+    var jsonBody = json.encode(body);
+
+    var response = await http.post(Uri.http(IpInfo.httpUri, '/diary/nextList'),
+        headers: {"Content-Type": "application/json"}, body: jsonBody);
+
+    if (response.statusCode == 200) {
+      debugPrint("통신 완료");
+      var data = jsonDecode(utf8.decode(response.bodyBytes)) as List;
+
+      List<RequestDiaryInfo> diaryList =
+      data.map((list) => RequestDiaryInfo.fromJson(list)).toList();
+      debugPrint(diaryList.toString());
+
+      return diaryList;
+    } else {
+      throw Exception("diaryList() 에러발생");
+    }
+  }
+
   Future<RequestDiaryInfo> read(int diaryNo) async {
     var response = await http.get(Uri.http(IpInfo.httpUri, '/diary/read/$diaryNo'),
       headers: {'Content-Type' : "application/json"});
